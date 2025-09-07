@@ -1,0 +1,195 @@
+Objetivo: criar o jogo da velha em linguagem C
+
+Requisitos obrigatorios:
+    Modo de jogo:
+    •	Jogador vs Jogador
+    •	Jogador vs Computador (fácil e difícil)
+    Ranking dinâmico (em tempo de execução):
+    •	Contabilizar vitórias/empates dos jogadores enquanto o programa estiver rodando
+    •	Exibir o ranking atualizado no menu ou após cada partida
+    Interface:
+    •	Jogo totalmente operado por teclado
+    •	Exibição clara do tabuleiro, vez do jogador, resultado da partida
+    Usabilidade:
+    •	Menu inicial com opções de jogo, nível de dificuldade e exibição de ranking
+    •	Partidas seguidas sem reiniciar o programa
+ 
+>-----------------------------------------------------------------------------------------<
+
+- inicialização de tabela
+- mostra a tabela
+- verificador de vitorias
+
+- contador de vitorias para cada jogador (incluindo computador)
+- contador empates
+- aleatorizador de opções pro computador
+
+
+    printf("=====================================\n");
+    printf("             JOGO DA VELHA          \n");
+    printf("=====================================\n");
+    printf("1. Jogador vs Jogador\n");
+    printf("2. Jogador vs Computador - Nivel: Facil\n");
+    printf("3. Jogador vs Computador - Nivel: Dificil\n");
+    printf("4. Ranking \n");
+    printf("5. Sair\n");
+    printf("Escolha uma opção: ");
+    scanf("%d", &option);
+
+localização das posições:
+
+        0 | 1 | 2
+    0 | 1 | 2 | 3  == [0][posiçao -1]
+    1 | 4 | 5 | 6  == [1][posiçao -4]
+    2 | 7 | 8 | 9  == [2][posiçao -7]
+
+=============================================================================
+
+
+    if(table[0][0] == playerX && table[1][1] == playerX && table[2][2] == playerX){
+        winner = playerX;
+        printf("Jogador %c venceu!\n", winner);
+        break;
+    }
+
+    if(table[0][2] == playerX && table[1][1] == playerX && table[2][0] == playerX){
+        winner = playerX;
+        printf("Jogador %c venceu!\n", winner);
+        break;
+    }
+
+=============================================================================
+
+srand(time(NULL)); // inicializa o gerador de números aleatórios com o tempo atual do sistema
+
+    for(i = 0; i < 10; i++)
+    {
+        num[i] = 1 + rand() % 9; // gera um número aleatório
+    }
+
+    explicação do código acima:
+    -> 1 + rand() % 9
+    -> rand() % 9 -> gera números de 0 a 8
+    -> 1 + (0 a 8) -> gera números de 1 a 9
+
+=============================================================================
+
+srand(time(NULL));
+position = 1 + rand() % 9; - gera um número aleatório entre 1 e 9 para posição
+
+=============================================================================
+Jogador X Computador Difícil
+
+tabela [linhas][colunas]
+
+        0 | 1 | 2
+    0 | 1 | 2 | 3
+    1 | 4 | 5 | 6
+    2 | 7 | 8 | 9
+
+    12 formas de vencer o jogo
+    - deve ser feito 12 formas de verificar a vitória
+    - deve ser feito 12 formas de bloquear a vitória do oponente
+
+if(primeira linha quase completa)
+{
+    escolher um número aleatório
+    if(1)
+    {
+        bloquear jogada
+    }
+    if(2)
+    {
+        fazer uma jogada aleatória
+    }
+}
+
+if(segunda linha quase completa)
+{
+    escolher um número aleatório
+    if(1)
+    {
+        bloquear jogada
+    }
+    if(2)
+    {
+        fazer uma jogada aleatória
+    }
+}
+
+if(terceira linha quase completa)
+{
+    escolher um número aleatório
+    if(1)
+    {
+        bloquear jogada
+    }
+    if(2)
+    {
+        fazer uma jogada aleatória
+    }
+}
+
+if(primeira coluna quase completa)
+{
+    escolher um número aleatório
+    if(1)
+    {
+        bloquear jogada
+    }
+    if(2)
+    {
+        fazer uma jogada aleatória
+    }
+}
+
+if(segunda coluna quase completa)
+{
+    escolher um número aleatório
+    if(1)
+    {
+        bloquear jogada
+    }
+    if(2)
+    {
+        fazer uma jogada aleatória
+    }
+}
+
+if(terceira coluna quase completa)
+{
+    escolher um número aleatório
+    if(1)
+    {
+        bloquear jogada
+    }
+    if(2)
+    {
+        fazer uma jogada aleatória
+    }
+}
+if(primeira diagonal quase completa)
+{
+    escolher um número aleatório
+    if(1)
+    {
+        bloquear jogada
+    }
+    if(2)
+    {
+        fazer uma jogada aleatória
+    }
+}
+
+if(segunda diagonal quase completa)
+{
+    escolher um número aleatório
+    if(1)
+    {
+        bloquear jogada
+    }
+    if(2)
+    {
+        fazer uma jogada aleatória
+    }
+}
