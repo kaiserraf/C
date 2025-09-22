@@ -35,6 +35,97 @@ void showTable(char table[lineSize][columnSize], int line, int lumn, int positio
     }
 }
 
+void checkVictory(char table[lineSize][columnSize], int line, int lumn, int position, int winner, int vitoriaX, int vitoriaO)
+{
+    // verificação de vitória jogador X
+
+        for (line = 0; line < lineSize; line++)
+        {
+            if (table[line][0] == playerX && table[line][1] == playerX && table[line][2] == playerX)
+            { // verifica linhas X
+                winner = playerX;
+                printf("Jogador %c venceu!\n", winner);
+
+                vitoriaX++;
+
+            }
+        }
+
+        for (lumn = 0; lumn < columnSize; lumn++)
+        {
+            if (table[0][lumn] == playerX && table[1][lumn] == playerX && table[2][lumn] == playerX)
+            { // verifica colunas X
+                winner = playerX;
+                printf("Jogador %c venceu!\n", winner);
+
+                vitoriaX++;
+
+            }
+        }
+
+        if (table[0][0] == playerX && table[1][1] == playerX && table[2][2] == playerX)
+        {
+            winner = playerX;
+            printf("Jogador %c venceu!\n", winner);
+
+            vitoriaX++;
+
+        }
+
+        if (table[0][2] == playerX && table[1][1] == playerX && table[2][0] == playerX)
+        {
+            winner = playerX;
+            printf("Jogador %c venceu!\n", winner);
+
+            vitoriaX++;
+
+        }
+
+        // verificação de vitória jogador O
+
+        for (line = 0; line < lineSize; line++)
+        {
+            if (table[line][0] == playerO && table[line][1] == playerO && table[line][2] == playerO)
+            { // verifica linhas X
+                winner = playerO;
+                printf("Jogador %c venceu!\n", winner);
+
+                vitoriaO++;
+
+            }
+        }
+
+        for (lumn = 0; lumn < columnSize; lumn++)
+        {
+            if (table[0][lumn] == playerO && table[1][lumn] == playerO && table[2][lumn] == playerO)
+            { // verifica colunas X
+                winner = playerO;
+                printf("Jogador %c venceu!\n", winner);
+
+                vitoriaO++;
+
+            }
+        }
+
+        if (table[0][0] == playerO && table[1][1] == playerO && table[2][2] == playerO)
+        {
+            winner = playerO;
+            printf("Jogador %c venceu!\n", winner);
+
+            vitoriaO++;
+
+        }
+
+        if (table[0][2] == playerO && table[1][1] == playerO && table[2][0] == playerO)
+        {
+            winner = playerO;
+            printf("Jogador %c venceu!\n", winner);
+
+            vitoriaO++;
+
+        }
+}
+
 int main()
 {
 
