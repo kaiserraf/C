@@ -1,23 +1,31 @@
 /*
-    Rafael de Oliveira Machado = 2025105563
-    Danilo Campelo
-    Fernando
-    Matheus Padilha
+    Rafael Machado = 2025105563
+    Danilo Campelo = 2025105340
+    Fernando Correa= 2025105720
+    Matheus Padilha = 2025105420
 */
+
+
+// bibliotecas usadas
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
 
-#define playerX 'X'
-#define playerO 'O'
-#define empate 'E'
+// definições usadas
 
-#define space '_'
+#define playerX 'X' // player X
+#define playerO 'O' // player O
+#define empate 'E' // empate (usado para loop do jogo)
 
+#define space '_' // espaço vazio para o tabuleiro
+
+// define o tamanho do tabuleiro
 #define lineSize 3
 #define columnSize 3
+
+// funções usadas (criar e mostrar tabela)
 
 void createTable(char table[lineSize][columnSize], int line, int lumn, int position)
 {
@@ -46,9 +54,11 @@ void showTable(char table[lineSize][columnSize], int line, int lumn, int positio
 int main()
 {
 
-    setlocale(LC_ALL, "Portuguese");
+    setlocale(LC_ALL, "pt_BR.UTF-8"); // configura o idioma para português
 
-    srand(time(NULL));
+    srand(time(NULL)); // inicializa o gerador de números aleatórios
+
+    // criação das variaveis
 
     int option;
     int escolhaComputador;
@@ -73,40 +83,43 @@ int main()
         printf("             JOGO DA VELHA          \n");
         printf("=====================================\n");
         printf("1. Jogador vs Jogador\n");
-        printf("2. Jogador vs Computador - Nivel: iFacil\n");
+        printf("2. Jogador vs Computador - Nivel: Facil\n");
         printf("3. Jogador vs Computador - Nivel: Difcil\n");
         printf("4. Ranking \n");
         printf("5. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &option);
 
-        createTable(table, line, lumn, position);
+        createTable(table, line, lumn, position); // inicializa o tabuleiro
 
-        switch (option)
+        switch (option) // switch case para as opções do menu
         {
             // jogador X jogador
         case 1:
 
-            system("cls");
+            system("cls"); // limpa a tela (windows)
             while (winner == empate && contJogadas < 9)
             { // loop infinito para continuar o jogo -> jogador VS jogador
 
                 showTable(table, line, lumn, position);
 
-                printf("Jogador %c, escolha a posição: ", jogadorAtual);
-                scanf("%d", &position);
+                printf("Jogador %c, escolha a posição: ", jogadorAtual); // pede a posição do jogador atual
+                scanf("%d", &position); // lê a posição
 
+                // validação da posição
                 if (position < 1 || position > 9)
                 {
                     printf("Posição inválida!, escolha novamente...\n");
                     continue; // pula para inicio do loop while
                 }
 
+                // atribuição da posição no tabuleiro
                 if (position >= 1 && position <= 3)
                 {
 
+                    // verifica se a posição já está ocupada
                     if (table[0][position - 1] != space)
-                    { // verifica se a posição já está ocupada
+                    {
                         printf("Essa posição já está ocupada, ecolha outra posição: \n");
                         continue;
                     }
@@ -135,10 +148,11 @@ int main()
 
                 // verificação de vitória jogador X
 
+                // verifica as linhas
                 for (line = 0; line < lineSize; line++)
                 {
                     if (table[line][0] == playerX && table[line][1] == playerX && table[line][2] == playerX)
-                    { // verifica linhas X
+                    {
                         winner = playerX;
                         printf("Jogador %c venceu!\n", winner);
 
@@ -148,6 +162,7 @@ int main()
                     }
                 }
 
+                // verifica as colunas
                 for (lumn = 0; lumn < columnSize; lumn++)
                 {
                     if (table[0][lumn] == playerX && table[1][lumn] == playerX && table[2][lumn] == playerX)
@@ -161,6 +176,7 @@ int main()
                     }
                 }
 
+                // verifica as diagonais
                 if (table[0][0] == playerX && table[1][1] == playerX && table[2][2] == playerX)
                 {
                     winner = playerX;
@@ -232,30 +248,35 @@ int main()
                 // Alterna o jogador atual
 
                 contJogadas++;
-                if (contJogadas % 2 == 0)
-                { // jogadas pares == jogador X
+                if (contJogadas % 2 == 0) // jogadas pares == jogador X
+                { 
                     jogadorAtual = playerX;
                 }
-                else
-                { // jogadas ímpares == jogador O
+                else // jogadas ímpares == jogador O
+                { 
                     jogadorAtual = playerO;
                 }
 
-                if (winner != empate)
+                if (winner != empate) // sai do loop se houver um vencedor
                 {
                     showTable(table, line, lumn, position);
-                    break; // sai do loop se houver um vencedor
+                    break;
                 }
 
-                if (contJogadas == 9)
+                if (contJogadas == 9) // sai do loop se houver empate
                 {
                     showTable(table, line, lumn, position);
                     printf("Empate! Ninguém venceu.\n");
-                    break; // sai do loop se houver empate
+                    break;
                 }
 
             } // fim loop while(1)
 
+            option = 0;
+            contJogadas = 0;
+            winner = empate;
+
+            // Retorno ao menu
             printf("Digite 1 para voltar ao menu: ");
             scanf("%d", &voltarMenu);
             if (voltarMenu == 1)
@@ -263,7 +284,6 @@ int main()
                 system("cls");
                 continue;
             }
-            
             break;
 
             // jogador X computador facil
@@ -271,14 +291,13 @@ int main()
         case 2:
 
             system("cls");
-            while (winner == empate && contJogadas < 9)
+            while (winner == empate && contJogadas < 9) //loop infinito para continuar o jogo -> jogador VS computador
             {
-
                 showTable(table, line, lumn, position);
 
                 // escolha do jogador
 
-                while (contJogadas % 2 == 0)
+                while (contJogadas % 2 == 0) //jogadas pares = jogador X (mesma lógica do jogador vs jogador)
                 {
                     printf("Jogador %c, digite uma posição: ", jogadorAtual);
                     scanf("%d", &position);
@@ -328,6 +347,8 @@ int main()
                 while (contJogadas % 2 != 0)
                 {
                     escolhaComputador = 1 + rand() % 9; // gera uma posição aleatória entre 1 e 9
+
+                    // mesma lógica do jogador, atribui a posição no tabuleiro
 
                     if (escolhaComputador >= 1 && escolhaComputador <= 3)
                     {
@@ -472,7 +493,10 @@ int main()
                 }
 
             } // fim loop while(1)
-            break;
+            
+            option = 0;
+            contJogadas = 0;
+            winner = empate;
 
             printf("Digite 1 para voltar ao menu: ");
             scanf("%d", &voltarMenu);
@@ -482,6 +506,7 @@ int main()
                 continue;
             }
 
+            break;
             // jogador X computador dificil
 
         case 3:
@@ -489,7 +514,6 @@ int main()
             system("cls");
             while (winner == empate && contJogadas < 9)
             {
-
                 showTable(table, line, lumn, position);
 
                 while (contJogadas % 2 == 0)
@@ -546,7 +570,7 @@ int main()
 
                     if (escolhaComputador == 1)
                     {
-                        // verifica primeira linha
+                        // verifica primeira linha (bloqueio)
 
                         if ((table[0][0] == playerX && table[0][1] == playerX) ||
                             (table[0][1] == playerX && table[0][2] == playerX) ||
@@ -566,7 +590,7 @@ int main()
                             }
                         }
 
-                        // verifica segunda linha
+                        // verifica segunda linha (bloqueio)
 
                         if ((table[1][0] == playerX && table[1][1] == playerX) ||
                             (table[1][1] == playerX && table[1][2] == playerX) ||
@@ -586,7 +610,7 @@ int main()
                             }
                         }
 
-                        // verifica terceira linha
+                        // verifica terceira linha (bloqueio)
 
                         if ((table[2][0] == playerX && table[2][1] == playerX) ||
                             (table[2][1] == playerX && table[2][2] == playerX) ||
@@ -606,7 +630,7 @@ int main()
                             }
                         }
 
-                        // verifica primeira coluna
+                        // verifica primeira coluna (bloqueio)
 
                         if ((table[0][0] == playerX && table[1][0] == playerX) ||
                             (table[2][0] == playerX && table[1][0] == playerX) ||
@@ -626,7 +650,7 @@ int main()
                             }
                         }
 
-                        // verifica segunda coluna
+                        // verifica segunda coluna (bloqueio)
 
                         if ((table[0][1] == playerX && table[1][1] == playerX) ||
                             (table[1][1] == playerX && table[2][1] == playerX) ||
@@ -646,7 +670,7 @@ int main()
                             }
                         }
 
-                        // verifica terceira coluna
+                        // verifica terceira coluna (bloqueio)
 
                         if ((table[0][2] == playerX && table[1][2] == playerX) ||
                             (table[2][2] == playerX && table[1][2] == playerX) ||
@@ -667,7 +691,7 @@ int main()
                             }
                         }
 
-                        // verifica primeira diagonal
+                        // verifica primeira diagonal (bloqueio)
 
                         if ((table[0][0] == playerX && table[1][1] == playerX) ||
                             (table[2][2] == playerX && table[1][1] == playerX) ||
@@ -687,7 +711,7 @@ int main()
                             }
                         }
 
-                        // verifica segunda diagonal
+                        // verifica segunda diagonal (bloqueio)
 
                         if ((table[2][0] == playerX && table[1][1] == playerX) ||
                             (table[1][1] == playerX && table[0][2] == playerX) ||
@@ -707,7 +731,7 @@ int main()
                             }
                         }
                     }
-                    else if (escolhaComputador == 2 || contJogadas == 1)
+                    else if (escolhaComputador == 2 || contJogadas == 1) // se não conseguir bloquear, joga aleatório
                     {
                         position = 1 + rand() % 9; // gera um número aleatório entre 1 e 9 para posição
 
@@ -859,6 +883,10 @@ int main()
 
             } // fim do loop while
 
+            option = 0;
+            contJogadas = 0;
+            winner = empate;
+
             printf("Digite 1 para voltar ao menu: ");
             scanf("%d", &voltarMenu);
             if (voltarMenu == 1)
@@ -883,6 +911,10 @@ int main()
             printf("COMPUTADOR: %d\n", vitoriaComp);
             printf("EMPATES: %d\n", contEmpate);
 
+            option = 0;
+            contJogadas = 0;
+            winner = empate;
+
             printf("Digite 1 para voltar ao menu: ");
             scanf("%d", &voltarMenu);
             if (voltarMenu == 1)
@@ -896,68 +928,10 @@ int main()
             // sair
 
         case 5:
-            system("exit");
+            exit(0);
             break;
         }
     }
 
     return 0;
 }
-
-/*
-localização das posições:
-
-        0 | 1 | 2
-    0 | 1 | 2 | 3  == [0][posiçao -1]
-    1 | 4 | 5 | 6  == [1][posiçao -4]
-    2 | 7 | 8 | 9  == [2][posiçao -7]
-
-=============================================================================
-
-
-    if(table[0][0] == playerX && table[1][1] == playerX && table[2][2] == playerX){
-        winner = playerX;
-        printf("Jogador %c venceu!\n", winner);
-        break;
-    }
-
-    if(table[0][2] == playerX && table[1][1] == playerX && table[2][0] == playerX){
-        winner = playerX;
-        printf("Jogador %c venceu!\n", winner);
-        break;
-    }
-
-=============================================================================
-
-srand(time(NULL)); // inicializa o gerador de números aleatórios com o tempo atual do sistema
-
-    for(i = 0; i < 10; i++)
-    {
-        num[i] = 1 + rand() % 9; // gera um número aleatório
-    }
-
-    explicação do código acima:
-    -> 1 + rand() % 9
-    -> rand() % 9 -> gera números de 0 a 8
-    -> 1 + (0 a 8) -> gera números de 1 a 9
-
-=============================================================================
-
-srand(time(NULL));
-position = 1 + rand() % 9; - gera um número aleatório entre 1 e 9 para posição
-
-=============================================================================
-Jogador X Computador Difícil
-
-tabela [linhas][colunas]
-
-        0 | 1 | 2
-    0 | 1 | 2 | 3
-    1 | 4 | 5 | 6
-    2 | 7 | 8 | 9
-
-    12 formas de vencer o jogo
-    - deve ser feito 12 formas de verificar a vitória
-    - deve ser feito 12 formas de bloquear a vitória do oponente
-
-*/
